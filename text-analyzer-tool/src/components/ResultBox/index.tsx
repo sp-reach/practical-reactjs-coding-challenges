@@ -1,26 +1,29 @@
+import { pronouns } from '../../data/pronouns'
 import './index.scss'
 
-const ResultBox = () => {
+const ResultBox = ({ text }: { text: string }) => {
+  const splitNoSpaces = text.split(' ').filter((v) => v.trim().length > 0)
+
   const resultBar = [
     {
       title: 'Words',
-      value: 0,
+      value: splitNoSpaces.length > 0 ? splitNoSpaces.length : 0,
     },
     {
       title: 'Characters',
-      value: 0,
+      value: text.length,
     },
     {
       title: 'Sentences',
-      value: 0,
+      value: text.length > 0 ? text.split('.').filter((v) => v.trim().length > 0).length : 0,
     },
     {
       title: 'Paragraphs ',
-      value: 0,
+      value: text.split('\n').map((v) => v.trim().length > 0).length,
     },
     {
       title: 'Pronouns',
-      value: 0,
+      value: splitNoSpaces.filter((t) => pronouns.includes(t.toLowerCase())).length,
     },
   ]
 
