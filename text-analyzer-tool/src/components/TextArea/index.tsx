@@ -7,6 +7,7 @@ const TextArea = ({ setText, text }: { setText: Dispatch<SetStateAction<string>>
     return (
       <textarea
         // ref={textRef}
+        autoFocus={true}
         defaultValue={text}
         onChange={(event) => setText(event.target.value)}
         className="text-area"
