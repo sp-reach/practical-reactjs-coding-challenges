@@ -8,21 +8,20 @@ import TextArea from './components/TextArea'
 
 const App = () => {
   const [textBoxText, setTextBoxText] = useState('')
-  // const textRef = useRef<HTMLTextAreaElement>(null)
+  const words =
+    textBoxText
+      .match(/[^\s]*/gm)
+      ?.map((w) => w.replace(/[^a-zA-Z]/gi, '').trim())
+      .filter((w) => w.length > 0) ?? []
 
-  // const currentText = textRef.current?.value ?? ''
   return (
     <>
       <Navbar />
       <div className="small-container">
         <div className="main-app">
-          <ResultBox text={textBoxText} />
-          <TextArea
-            text={textBoxText}
-            setText={setTextBoxText}
-            // textRef={textRef}
-          />
-          <BottomResultBox text={textBoxText} />
+          <ResultBox text={textBoxText} splitWords={words} />
+          <TextArea text={textBoxText} setText={setTextBoxText} />
+          <BottomResultBox splitWords={words} />
         </div>
       </div>
       <Footer />

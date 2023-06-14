@@ -1,13 +1,15 @@
 import { pronouns } from '../../data/pronouns'
 import './index.scss'
 
-const ResultBox = ({ text }: { text: string }) => {
-  const splitNoSpaces = text.split(' ').filter((v) => v.trim().length > 0)
+const ResultBox = ({ text, splitWords = [] }: { text: string; splitWords: string[] }) => {
+  const completeSentences = text.match(/[^.!?]*[.!?]/gm)
+  const pronounMatches = splitWords.filter((t) => pronouns.includes(t.toLowerCase()))
+  const firstWordOfParagraph = text.match(/\b(^\w+)/gm)
 
   const resultBar = [
     {
       title: 'Words',
-      value: splitNoSpaces.length > 0 ? splitNoSpaces.length : 0,
+      value: splitWords.length ?? 0,
     },
     {
       title: 'Characters',
@@ -15,15 +17,15 @@ const ResultBox = ({ text }: { text: string }) => {
     },
     {
       title: 'Sentences',
-      value: text.length > 0 ? text.split('.').filter((v) => v.trim().length > 0).length : 0,
+      value: completeSentences?.length ?? 0,
     },
     {
       title: 'Paragraphs ',
-      value: text.split('\n').map((v) => v.trim().length > 0).length,
+      value: firstWordOfParagraph?.length ?? 0,
     },
     {
       title: 'Pronouns',
-      value: splitNoSpaces.filter((t) => pronouns.includes(t.toLowerCase())).length,
+      value: pronounMatches.length,
     },
   ]
 

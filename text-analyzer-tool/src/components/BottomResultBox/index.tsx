@@ -1,15 +1,14 @@
 import './index.scss'
 
-const BottomResultBox = ({ text }: { text: string }) => {
-  const longestWord = text
-    .split(' ')
-    .sort((a, b) => a.length - b.length)
-    .pop()
+const BottomResultBox = ({ splitWords }: { splitWords: string[] }) => {
+  const longestWord = [...splitWords].sort((a, b) => a.length - b.length).pop()
+
+  const wordPerMinute = splitWords.length > 0 ? Math.ceil(splitWords.length / 238) : null
 
   const bottomResultBar = [
     {
       title: 'Average Reading Time:',
-      value: '-',
+      value: `~${wordPerMinute} minute` ?? '-',
     },
     {
       title: 'Longest word:',
