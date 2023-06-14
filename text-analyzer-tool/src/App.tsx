@@ -22,7 +22,7 @@ const App = () => {
             setText={setTextBoxText}
             // textRef={textRef}
           />
-          <BottomResultBox />
+          <BottomResultBox text={textBoxText} />
         </div>
       </div>
       <Footer />

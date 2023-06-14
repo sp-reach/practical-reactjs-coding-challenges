@@ -1,6 +1,11 @@
 import './index.scss'
 
-const BottomResultBox = () => {
+const BottomResultBox = ({ text }: { text: string }) => {
+  const longestWord = text
+    .split(' ')
+    .sort((a, b) => a.length - b.length)
+    .pop()
+
   const bottomResultBar = [
     {
       title: 'Average Reading Time:',
@@ -8,7 +13,7 @@ const BottomResultBox = () => {
     },
     {
       title: 'Longest word:',
-      value: '-',
+      value: longestWord ?? '-',
     },
   ]
 
